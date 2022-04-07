@@ -14,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider; // 주입시점을 뒤로 미룰 수 있다.
+    private final MyLogger myLogger; // 주입시점을 뒤로 미룰 수 있다.
 
     @RequestMapping("log-demo")
     @ResponseBody
-    public String logDemo(HttpServletRequest request) {
+    public String logDemo(HttpServletRequest request) throws InterruptedException {
         String requsetURL = request.getRequestURL().toString();
-        MyLogger myLogger = myLoggerProvider.getObject();
         myLogger.setRequestURL(requsetURL);
 
         myLogger.log("controller test");
